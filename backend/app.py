@@ -22,7 +22,7 @@ def my_lists():
         
         QUERY = []
         if (location == "Parramatta"):
-            QUERY = [osm.PARRAMATTA. nlp.PARRAMATTA]
+            QUERY = [osm.PARRAMATTA, nlp.PARRAMATTA]
         elif (location == "Fairfield"):
             QUERY = [osm.FAIRFIELD, nlp.FAIRFIELD]
         elif (location == "Blacktown"):
