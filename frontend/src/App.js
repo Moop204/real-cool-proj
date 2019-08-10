@@ -1,9 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Grid, Image } from 'semantic-ui-react'
 import './css/App.css';
 import './css/Map.css';
 
-import WebMap from './Map'
+import AppGrid from './Grid'
+
 
 function App() {
   return (
@@ -15,14 +16,7 @@ function App() {
       </header>
       <div className="ui container"> 
         <div className="ui grid">
-          <div className="row">
-            <div className="column smallmap">
-              <WebMap />
-            </div>
-            <div className="column">
-              Details
-            </div>
-          </div>
+          <AppGrid />
         </div>
       </div>
     </div>

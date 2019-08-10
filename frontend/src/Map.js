@@ -2,6 +2,7 @@
 import React, { Component, createRef } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import './css/Map.css';
+import GoogleMap from 'google-map-react'
 
 /*
 type State = {
@@ -21,10 +22,40 @@ type State = {
 export default class WebMap extends Component { 
   constructor(props) {
     super(props)
-    this.googleMapRef = createRef()
+
+    //this.googleMapRef = createRef()
+  }
+
+  static defaultProps = {
+    center:[59, 30],
+    zoom: 9,
+
+  }
+
+  getChildren = () => {
+    children = fetch('localhost:5000/main')
+    .then(response => response.json())
+    .then((jsonData) => {
+      console.log(jsonData)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+    this.markers = children
+    // idk 
   }
 
   createGoogleMap = () => {
+    
+    return (<GoogleMap 
+      bootstrapURLKeys={{
+        key: 'AIzaSyCpjzJHDP2EOQH6_AAFOT-xzcQ7y2hyrHI',
+        language: 'en',
+        region: 'au'
+      }}
+      {this.markers.map(c => <Marker name={c.name} lat={c.lat} lng={c.lng}/> )}
+    />)
+    /*
     new window.google.maps.Map(this.googleMapRef.current, {
       zoom: 12,
       center: {
@@ -33,19 +64,23 @@ export default class WebMap extends Component {
       },
       disableDefaultUI: true,
     })
+    */   
   }
 
   render() {
+    mapContent = this.createGoogleMap();
+    mapContent.appendChild()
     return (
+      {mapContent}
+      /*
       <div 
       id="google-map"
       ref={this.googleMapRef}
-      style={{ width:'400px', height:'300px'}}
+      style={{ width:'1200px', height:'800px'}}
       />
+      */
     )
   }
-
-
   
   componentDidMount = () => {
     const googleScript = document.createElement('script')
@@ -56,7 +91,8 @@ export default class WebMap extends Component {
     })
   }
 
-  createMarker  = () => {
+  createMarker  = (props) => {
+
     new window.google.maps.Marker({
       position: { lat: 43.000000, lng: -79.000000 },
       map: this.googleMap,
