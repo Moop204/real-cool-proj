@@ -11,8 +11,9 @@ from flask_cors import CORS, cross_origin
 
 # api = overpass.API(endpoint="https://lz4.overpass-api.de/api/interpreter")
 
-app = Flask(__name__)
 
+app = Flask(__name__)
+CORS(app)
 
 @app.route('/main', methods=['GET', 'POST'])
 def my_lists():

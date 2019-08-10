@@ -1,5 +1,7 @@
 import React from 'react'
-import { Input, Container, Segment } from 'semantic-ui-react'
+import { Input, Container, Segment, Button } from 'semantic-ui-react'
+import MyForm from './Buttons'
+
 const InputFocus = () => (
   <Input focus placeholder='Search...' />
 );
@@ -8,7 +10,7 @@ const actionbar = () => (
   <Container>
     <Segment attached='top'>DETAILS</Segment>
     <Segment>SAMPLE</Segment>
-    <InputFocus />
+    <MyForm />
   </Container>
 )
 
