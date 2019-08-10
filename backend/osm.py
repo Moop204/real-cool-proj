@@ -41,68 +41,76 @@ FAIRFIELD = {
     "e": "151.00",
     "lat": -33.88,
     "long": 150.98
-
 }
 
 api = overpy.Overpass()
 
-def getSchools(area):
+def getAmenities(area):
     result = api.query("node({}, {}, {}, {});out;".format(area["s"], area["w"], area["n"], area["e"]))
-    school_list = []
+    amenities = []
     for node in result.nodes:
-        if "amenity" in node.tags and node.tags["amenity"] == "school":
+        if "amenity" in node.tags:
+            amenities.append(node)
+    return amenities
+
+def getSchools(amenities):
+    school_list= []
+    for node in amenities:
+        if node.tags["amenity"] == "school":
             if "name" in node.tags:
                 school_list.append(node.tags["name"])
     return school_list
 
-def getRestaurants(area):
-    result = api.query("node({}, {}, {}, {});out;".format(area["s"], area["w"], area["n"], area["e"]))
+def getRestaurants(amenities):
     restaurant_list = []
-    for node in result.nodes:
-        if "amenity" in node.tags and (node.tags["amenity"] == "restaurant" or node.tags["amenity"] == "fast_food" or node.tags["amenity"] == "cafe"):
+    for node in amenities:
+        if (node.tags["amenity"] == "restaurant" or node.tags["amenity"] == "fast_food" or node.tags["amenity"] == "cafe"):
             if "name" in node.tags:
                 restaurant_list.append(node.tags["name"])
     return restaurant_list
 
-def getMedicalFacilities(area):
-    result = api.query("node({}, {}, {}, {});out;".format(area["s"], area["w"], area["n"], area["e"]))
+def getMedicalFacilities(amenities):
     med_list = []
-    for node in result.nodes:
-        if "amenity" in node.tags and (node.tags["amenity"] == "clinic" or node.tags['amenity'] == "doctors" or node.tags['amenity'] == "pharmacy" or node.tags['amenity'] == "dentist"):
+    for node in amenities:
+        if (node.tags["amenity"] == "clinic" or node.tags['amenity'] == "doctors" or node.tags['amenity'] == "pharmacy" or node.tags['amenity'] == "dentist"):
             if "name" in node.tags:
                 med_list.append(node.tags["name"])
     return med_list
 
-def getChildcareCentres(area):
-    result = api.query("node({}, {}, {}, {});out;".format(area["s"], area["w"], area["n"], area["e"]))
+def getChildcareCentres(amenities):
     cc_list = []
-    for node in result.nodes:
-        if "amenity" in node.tags and (node.tags["amenity"] == "childcare"):
+    for node in amenities:
+        if (node.tags["amenity"] == "childcare"):
             if "name" in node.tags:
                 cc_list.append(node.tags["name"])
     return cc_list
 
-def getPoliceStations(area):
-    result = api.query("node({}, {}, {}, {});out;".format(area["s"], area["w"], area["n"], area["e"]))
+def getPoliceStations(amenities):
     fuzz_list = []
-    for node in result.nodes:
-        if "amenity" in node.tags and (node.tags["amenity"] == "police"):
+    for node in amenities:
+        if (node.tags["amenity"] == "police"):
             if "name" in node.tags:
                 fuzz_list.append(node.tags["name"])
     return fuzz_list
 
-def getPlacesOfWorship(area):
-    result = api.query("node({}, {}, {}, {});out;".format(area["s"], area["w"], area["n"], area["e"]))
+def getPlacesOfWorship(amenities):
     rel_list = []
-    for node in result.nodes:
-        if "amenity" in node.tags and (node.tags["amenity"] == "place_of_worship"):
-            print(node.tags)
+    for node in amenities:
+        if node.tags["amenity"] == "place_of_worship":
+            # print(node.tags)
             if "name" in node.tags:
                 rel_list.append(node.tags["name"])
     return rel_list
 
 PLACES = [FAIRFIELD, BLACKTOWN, SURRY_HILLS, PARRAMATTA]
 
-# for place in places:
+# for place in PLACES:
+
 #     print(place["name"])
-#     print(getPlacesOfWorship(place))
+#     amenities = getAmenities(place)
+#     print(getPlacesOfWorship(amenities))
+#     print(getSchools(amenities))
+#     print(getChildcareCentres(amenities))
+#     print(getMedicalFacilities(amenities))
+#     print(getRestaurants(amenities))
+#     print(getPoliceStations(amenities))
