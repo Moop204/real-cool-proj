@@ -4,6 +4,7 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import './css/Map.css';
 import GoogleMap from 'google-map-react'
 
+
 /*
 type State = {
   lat: number,
@@ -32,6 +33,7 @@ export default class WebMap extends Component {
 
   }
 
+  /*
   getChildren = () => {
     children = fetch('localhost:5000/main')
     .then(response => response.json())
@@ -44,6 +46,7 @@ export default class WebMap extends Component {
     this.markers = children
     // idk 
   }
+  */
 
   createGoogleMap = () => {
     
@@ -53,7 +56,7 @@ export default class WebMap extends Component {
         language: 'en',
         region: 'au'
       }}
-      {this.markers.map(c => <Marker name={c.name} lat={c.lat} lng={c.lng}/> )}
+      //{this.markers.map(c => <Marker name={c.name} lat={c.lat} lng={c.lng}/> )}
     />)
     /*
     new window.google.maps.Map(this.googleMapRef.current, {
@@ -68,28 +71,29 @@ export default class WebMap extends Component {
   }
 
   render() {
-    mapContent = this.createGoogleMap();
-    mapContent.appendChild()
     return (
-      {mapContent}
-      /*
-      <div 
-      id="google-map"
-      ref={this.googleMapRef}
-      style={{ width:'1200px', height:'800px'}}
-      />
-      */
+      <div id="google-map" style={{ width:'1200px', height:'800px'}}>
+        <GoogleMap 
+        bootstrapURLKeys={{
+          key: 'AIzaSyCpjzJHDP2EOQH6_AAFOT-xzcQ7y2hyrHI',
+          language: 'en',
+          region: 'au',
+        }}
+        center={[-33.82, 151.0]}
+        zoom={9}
+        />
+      </div>
     )
   }
   
-  componentDidMount = () => {
-    const googleScript = document.createElement('script')
-    googleScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCpjzJHDP2EOQH6_AAFOT-xzcQ7y2hyrHI&libraries=places`
-    window.document.body.appendChild(googleScript)
-    googleScript.addEventListener('load', () => {
-      this.googleMap = this.createGoogleMap()
-    })
-  }
+  // componentDidMount = () => {
+  //   const googleScript = document.createElement('script')
+  //   googleScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCpjzJHDP2EOQH6_AAFOT-xzcQ7y2hyrHI&libraries=places`
+  //   window.document.body.appendChild(googleScript)
+  //   googleScript.addEventListener('load', () => {
+  //     this.googleMap = this.createGoogleMap()
+  //   })
+  // }
 
   createMarker  = (props) => {
 
