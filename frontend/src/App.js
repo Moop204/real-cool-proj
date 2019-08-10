@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './css/App.css';
+import './css/Map.css';
 
-import Map from './Map'
+import WebMap from './Map'
 
 function App() {
   return (
@@ -11,23 +12,15 @@ function App() {
         <p>
           Livability
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
-      <div class="ui container"> 
-        <div class="ui grid">
-          <div class="row">
-            <div class="column">
-              <Map />
+      <div className="ui container"> 
+        <div className="ui grid">
+          <div className="row">
+            <div className="column smallmap">
+              <WebMap />
             </div>
-            <div class="column">
-              KEY FEATURES
+            <div className="column">
+              Details
             </div>
           </div>
         </div>
