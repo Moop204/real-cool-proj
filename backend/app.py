@@ -53,5 +53,3 @@ def my_lists():
     return jsonify(result)
 
 app.run(debug=True)
-
-#
